@@ -1,0 +1,22 @@
+*,
+*::after,
+*::before {
+    padding: 0;
+    margin: 0;
+}
+
+div.container{
+    width: 60rem; /* = 960px if root font-size is 16px */
+    max-width: 100%; /* Prevents overflow on small screens */
+    display: flex;
+    flex-wrap: wrap;
+}
+
+div.onSquare{
+    background-color: transparent;
+}
+
+div.offSquare{
+    transition: all 2s;
+    background-color: transparent;
+}
