@@ -23,34 +23,37 @@ const MAX_GRID_WIDTH = 60; //rem
 
 onLoad();
 
-function onLoad(){
+function onLoad() {
     createGrid(INITIAL_GRID_NUMBER);
+    const newGridButton = document.querySelector('button.newGridButton');
+    newGridButton.addEventListener('click',createNewGrid);
 }
 
-function createGrid(gridNumber){
+function createGrid(gridNumber) {
     const containerDiv = document.querySelector('div.container');
-    for(i=0;i<gridNumber*gridNumber;i++){
-        const newSquare = createSquare((MAX_GRID_WIDTH)/INITIAL_GRID_NUMBER);
+    containerDiv.innerHTML = '';
+    for (i = 0; i < gridNumber * gridNumber; i++) {
+        const newSquare = createSquare((MAX_GRID_WIDTH) / gridNumber);
         containerDiv.appendChild(newSquare);
     }
 }
 
-function createSquare(dimensions){
+function createSquare(dimensions) {
     const newSquare = document.createElement("div");
-    newSquare.style.width=`${dimensions}rem`;
-    newSquare.style.height=`${dimensions}rem`;
+    newSquare.style.width = `${dimensions}rem`;
+    newSquare.style.height = `${dimensions}rem`;
     newSquare.classList.add('square');
-    newSquare.addEventListener("mouseenter",changeSquareColor);
-    newSquare.addEventListener("mouseleave",removeSquareColor);
+    newSquare.addEventListener("mouseenter", changeSquareColor);
+    newSquare.addEventListener("mouseleave", removeSquareColor);
     return newSquare;
 }
 
-function changeSquareColor(){
+function changeSquareColor() {
     this.classList.remove('offSquare');
     this.style.backgroundColor = getRandomRgbColor();
 }
 
-function removeSquareColor(){
+function removeSquareColor() {
     this.style.removeProperty('background-color');
     this.classList.add('offSquare');
 }
@@ -60,4 +63,13 @@ function getRandomRgbColor() {
     const g = Math.floor(Math.random() * 256);
     const b = Math.floor(Math.random() * 256);
     return `rgb(${r}, ${g}, ${b})`;
-  }
+}
+
+function createNewGrid(){
+    do{
+        var input = prompt("Please enter your new grid size up to 100: ");
+        input = Number(input);
+    } while (input === null || Number.isNaN(input) || input<1 || input > 100 || !Number.isInteger(input));
+
+    createGrid(input);
+}
